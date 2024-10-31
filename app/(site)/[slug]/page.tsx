@@ -2,7 +2,7 @@ import { PortableText } from "@portabletext/react"
 import { getPage, urlFor } from "@/sanity/sanity-utils";
 import Image from "next/image";
 
- type PageProps = {
+ interface PageProps {
     params: { slug: string };
   };
   
