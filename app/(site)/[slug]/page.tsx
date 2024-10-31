@@ -1,7 +1,7 @@
 import { PortableText } from "@portabletext/react";
 import { getPage, urlFor } from "@/sanity/sanity-utils";
 import Image from "next/image";
-import { Page as PageType } from "@/types/Page";
+// import { Page as PageType } from "@/types/Page";
 import { notFound } from "next/navigation"; // Import for handling missing pages
 
 interface PageProps {
