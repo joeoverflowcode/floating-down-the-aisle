@@ -5,7 +5,8 @@ export type Photo = {
     image: {
         asset: {
             _ref: string,
-            _type: "reference"
+            _type: "reference",
+            url?: string
         }
     }
     caption: string

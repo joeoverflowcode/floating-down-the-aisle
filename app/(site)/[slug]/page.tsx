@@ -1,26 +1,22 @@
 import { PortableText } from "@portabletext/react"
 import { getPage, urlFor } from "@/sanity/sanity-utils";
 import Image from "next/image";
+import {Page as PageType} from "../../../types/Page"
 
-
-interface Params {
-    slug: string;
-  }
-  
   interface PageProps {
-    params: Params;
+    params: {slug: string};
   }
   
   export default async function Page({params}: PageProps) {
     const { slug } = params;
-    const page = await getPage(slug)
+    const page:PageType = await getPage(slug)
   
     return <div>
                  <h1 className="text-xl">{page.title}</h1>
                  <PortableText value={page.content}/>
                  {page.gallery.map((item, index) => (
                     <div key={index}>
-                        <Image src={urlFor(item.image).width(400).url()} alt={`image`} width={400} height={400} />
+                        <Image src={urlFor(item.image).url()} alt={`image`} width={400} height={400} />
                         <p>{item.caption}</p>
                     </div>
                 ))}
