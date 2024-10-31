@@ -2,12 +2,17 @@ import { PortableText } from "@portabletext/react"
 import { getPage, urlFor } from "@/sanity/sanity-utils";
 import Image from "next/image";
 
- interface PageProps {
-    params: { slug: string };
-  };
+
+interface Params {
+    slug: string;
+  }
   
-  export default async function Page(props: PageProps) {
-    const { slug } = props.params;
+  interface PageProps {
+    params: Params;
+  }
+  
+  export default async function Page({params}: PageProps) {
+    const { slug } = params;
     const page = await getPage(slug)
   
     return <div>
