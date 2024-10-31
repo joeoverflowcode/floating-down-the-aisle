@@ -3,8 +3,10 @@ import { getPage, urlFor } from "@/sanity/sanity-utils";
 import Image from "next/image";
 import {Page as PageType} from "../../../types/Page"
 
-  interface PageProps {
-    params: {slug: string};
+interface PageProps {
+    params: {
+      slug: string;
+    };
   }
   
   export default async function Page({params}: PageProps) {
