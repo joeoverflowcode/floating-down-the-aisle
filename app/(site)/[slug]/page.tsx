@@ -1,40 +1,111 @@
-import { PortableText } from "@portabletext/react"
+import { PortableText } from "@portabletext/react";
 import { getPage, urlFor } from "@/sanity/sanity-utils";
 import Image from "next/image";
-import {Page as PageType} from "../../../types/Page"
+import { Page as PageType } from "@/types/Page";
+import { notFound } from "next/navigation"; // Import for handling missing pages
 
 interface PageProps {
-    params: {
-      slug: string;
-    };
-  }
+  params: {
+    slug: string;
+  };
+}
+
+export default async function Page({ params }: PageProps) {
+  const { slug } = params;
   
-  export default async function Page({params}: PageProps) {
-    const { slug } = params;
-    const page:PageType = await getPage(slug)
+  // Fetch page data
+  const page = await getPage(slug);
   
-    return <div>
-                 <h1 className="text-xl">{page.title}</h1>
-                 <PortableText value={page.content}/>
-                 {page.gallery.map((item, index) => (
-                    <div key={index}>
-                        <Image src={urlFor(item.image).url()} alt={`image`} width={400} height={400} />
-                        <p>{item.caption}</p>
-                    </div>
-                ))}
-                </div>;
-  }
+  // If the page is not found, handle with notFound() function
+  if (!page) return notFound();
+
+  return (
+    <div>
+      <h1 className="text-xl">{page.title}</h1>
+      <PortableText value={page.content} />
+      {page.gallery.map((item, index) => (
+        <div key={index}>
+          <Image
+            src={urlFor(item.image).width(400).url()}
+            alt={item.caption || "Image"}
+            width={400}
+            height={400}
+          />
+          <p>{item.caption}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Static parameters for SSG
+export async function generateStaticParams() {
+  return [
+    { slug: "bride" },
+    { slug: "groom" },
+    { slug: "ceremony" },
+    { slug: "reception" },
+    { slug: "outtakes" },
+  ];
+}
+
+// import { PortableText } from "@portabletext/react"
+// import { getPage, urlFor } from "@/sanity/sanity-utils";
+// import Image from "next/image";
+// import {Page as PageType} from "../../../types/Page"
+// import { useEffect, useState } from "react";
+
+// interface PageProps {
+//     params: {
+//       slug: string;
+//     };
+//   }
   
-  // Use `generateStaticParams` to define paths for static generation
-  export async function generateStaticParams() {
-    return [
-      { slug: 'bride' },
-      { slug: 'groom' },
-      { slug: 'ceremony' },
-      { slug: 'reception' },
-      { slug: 'outtakes' },
-    ];
-  }
+//   export default function Page({params}: PageProps) {
+//     const { slug } = params;
+//     const [page, setPage] =useState<PageType | null>(null)
+//     const [isLoading, setIsLoading] = useState(true)
+
+//     useEffect(() => {
+//         async function fetchPage() {
+//             try{
+//                 const pageData = await getPage(slug)
+//                 setPage(pageData)
+//             } catch (error){
+//                 console.error("failed to fetch page data:", error)
+//             } finally {
+//                 setIsLoading(false)
+//             }
+//         }
+//         fetchPage()
+//     }, [slug])
+//     // Render a loading state while fetching the data
+//     if (isLoading) return <p>Loading...</p>;
+
+//     // Render an error state if page data is null
+//     if (!page) return <p>Error: Page not found</p>;
+//     return <div>
+//                  <h1 className="text-xl">{page.title}</h1>
+//                  <PortableText value={page.content}/>
+//                  {page.gallery.map((item, index) => (
+//                     <div key={index}>
+//                         <Image src={urlFor(item.image).url()} alt={`image`} width={400} height={400} />
+//                         <p>{item.caption}</p>
+//                     </div>
+//                 ))}
+//                 </div>;
+//   }
+  
+//   // Use `generateStaticParams` to define paths for static generation
+//   export async function generateStaticParams() {
+//     return [
+//       { slug: 'bride' },
+//       { slug: 'groom' },
+//       { slug: 'ceremony' },
+//       { slug: 'reception' },
+//       { slug: 'outtakes' },
+//     ];
+//   }
   
 
 // import { getPage, urlFor } from "@/sanity/sanity-utils"
