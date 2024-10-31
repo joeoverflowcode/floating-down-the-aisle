@@ -7,7 +7,7 @@ import Image from "next/image";
   };
   
   export default async function Page({ params }: PageProps) {
-    const { slug } = await params;
+    const { slug } = params;
     const page = await getPage(slug)
   
     return <div>
