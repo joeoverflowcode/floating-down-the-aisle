@@ -1,6 +1,12 @@
 import { createClient, groq } from "next-sanity"
 import { Page } from "@/types/Page"
 import clientConfig from "./config/client-config"
+import imageUrlBuilder  from "@sanity/image-url"
+
+const builder = imageUrlBuilder(clientConfig)
+export function urlFor(source:any){
+    return builder.image(source)
+}
 
 export async function getPages(): Promise<Page[]>{
 

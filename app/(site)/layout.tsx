@@ -31,9 +31,14 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {pages.map((page) => (
-          <Link key={page._id} href={`/${page.slug}`} className="pr-2 hover:underline">{page.title}</Link>
-        ))}
+        <div >
+        <Link href="/" className="hover:underline">Home</Link>
+        {pages.sort((a, b) => {
+          const order = ['Bride', 'Groom', 'Ceremony', 'Reception', 'Outtakes'];
+          return order.indexOf(a.title) - order.indexOf(b.title)
+        }).map((page) => (
+          <Link key={page._id} href={`/${page.slug}`} className="hover:underline pl-2">{page.title}</Link>
+        ))}</div>
         <main>{children}</main>
       </body>
     </html>
