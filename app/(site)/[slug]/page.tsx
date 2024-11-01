@@ -1,5 +1,6 @@
-import { getPage } from "@/sanity/sanity-utils"
+import { getPage, urlFor } from "@/sanity/sanity-utils"
 import {PortableText} from "@portabletext/react"
+import Image from "next/image"
 
 type Props = {
     params: {slug: string}
@@ -10,6 +11,12 @@ export default async function Page({params}:Props){
         <div>
             <h1>{page.title}</h1>
         <PortableText value={page.content} />
+        {page.gallery.map((item, index) => (
+                <div key={index}>
+                    <Image src={urlFor(item.image).width(400).url()} alt={`image`} width={400} height={400} />
+                    <p>{item.caption}</p>
+                </div>
+            ))}
         </div>
     )
 }
