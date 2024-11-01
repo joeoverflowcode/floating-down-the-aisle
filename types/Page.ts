@@ -1,4 +1,4 @@
-import { PortableTextBlock } from "sanity";
+import { PortableTextBlock } from "next-sanity";
 import { Photo } from "./Photo";
 
 export type Page = {
