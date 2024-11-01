@@ -39,7 +39,7 @@ export default async function Page({ params }: PageProps) {
 }
 
 // Static parameters for SSG
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{slug:string}[]>{
   return [
     { slug: "bride" },
     { slug: "groom" },
