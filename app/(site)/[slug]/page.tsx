@@ -1,5 +1,5 @@
 import { getPage } from "@/sanity/sanity-utils"
-// import {PortableText} from "@portabletext/react"
+import {PortableText} from "@portabletext/react"
 
 type Props = {
     params: {slug: string}
@@ -7,8 +7,10 @@ type Props = {
 export default async function Page({params}:Props){
     const page = await getPage(params.slug)
     return (
-        <div>{page.title}</div>
-
+        <div>
+            <h1>{page.title}</h1>
+        <PortableText value={page.content} />
+        </div>
     )
 }
 
