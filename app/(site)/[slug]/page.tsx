@@ -11,7 +11,7 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-  const { slug } = params;
+//   const { slug } = params;
   
   // Fetch page data
   const page = await getPage(params.slug);
