@@ -14,7 +14,7 @@ export default async function Page({ params }: PageProps) {
   const { slug } = params;
   
   // Fetch page data
-  const page = await getPage(slug);
+  const page = await getPage(params.slug);
   
   // If the page is not found, handle with notFound() function
   if (!page) return notFound();
