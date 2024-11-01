@@ -1,53 +1,69 @@
-import { PortableText } from "@portabletext/react";
-import { getPage, urlFor } from "@/sanity/sanity-utils";
-import Image from "next/image";
-// import { Page as PageType } from "@/types/Page";
-import { notFound } from "next/navigation"; // Import for handling missing pages
+import { getPage } from "@/sanity/sanity-utils"
+import {PortableText} from "@portabletext/react"
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
+type Props = {
+    params: {slug: string}
+}
+export default async function Page({params}:Props){
+    const page = await getPage(params.slug)
+    return (
+        <div>{page.title}</div>
+
+    )
 }
 
-export default async function Page({ params }: PageProps) {
+
+
+// import { PortableText } from "@portabletext/react";
+// import { getPage, urlFor } from "@/sanity/sanity-utils";
+// import Image from "next/image";
+// // import { Page as PageType } from "@/types/Page";
+// import { notFound } from "next/navigation"; // Import for handling missing pages
+
+// interface PageProps {
+//   params: {
+//     slug: string;
+//   };
+// }
+
+// export default async function Page({ params }: PageProps) {
 //   const { slug } = params;
   
-  // Fetch page data
-  const page = await getPage(params.slug);
+//   // Fetch page data
+//   const page = await getPage(params.slug);
   
-  // If the page is not found, handle with notFound() function
-  if (!page) return notFound();
+//   // If the page is not found, handle with notFound() function
+//   if (!page) return notFound();
 
-  return (
-    <div>
-      <h1 className="text-xl">{page.title}</h1>
-      <PortableText value={page.content} />
-      {page.gallery.map((item, index) => (
-        <div key={index}>
-          <Image
-            src={urlFor(item.image).width(400).url()}
-            alt={item.caption || "Image"}
-            width={400}
-            height={400}
-          />
-          <p>{item.caption}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <h1 className="text-xl">{page.title}</h1>
+//       <PortableText value={page.content} />
+//       {page.gallery.map((item, index) => (
+//         <div key={index}>
+//           <Image
+//             src={urlFor(item.image).width(400).url()}
+//             alt={item.caption || "Image"}
+//             width={400}
+//             height={400}
+//           />
+//           <p>{item.caption}</p>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
 
-// Static parameters for SSG
-export async function generateStaticParams(): Promise<{slug:string}[]>{
-  return [
-    { slug: "bride" },
-    { slug: "groom" },
-    { slug: "ceremony" },
-    { slug: "reception" },
-    { slug: "outtakes" },
-  ];
-}
+// // Static parameters for SSG
+// export async function generateStaticParams(): Promise<{slug:string}[]>{
+//   return [
+//     { slug: "bride" },
+//     { slug: "groom" },
+//     { slug: "ceremony" },
+//     { slug: "reception" },
+//     { slug: "outtakes" },
+//   ];
+// }
 
 // import { PortableText } from "@portabletext/react"
 // import { getPage, urlFor } from "@/sanity/sanity-utils";
